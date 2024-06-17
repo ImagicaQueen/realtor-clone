@@ -1,5 +1,6 @@
 import { Inter } from "next/font/google";
 import "./globals.css";
+import Header from "@/_components/Header";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -27,7 +28,10 @@ const RootLayout: React.FC<RootLayoutProps> = ({ children }) => {
         <title>{metadata.title}</title>
         <meta name="description" content={metadata.description} />
       </head> */}
-      <body className={inter.className}>{children}</body>
+      <body className={inter.className}>
+        <Header/>
+        <div>{children}</div>
+      </body>
     </html>
   );
 };

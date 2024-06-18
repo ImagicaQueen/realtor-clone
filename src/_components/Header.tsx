@@ -1,41 +1,24 @@
 "use client";
-import React from "react";
+import React, { useCallback } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import { NavLinkProps } from "@/interfaces/header";
 
 const Header = () => {
-  const pathname = usePathname();
   const router = useRouter();
-
-  const pathMatchRoute = (route: string) => {
-    return route === pathname;
-  };
-
-  const NavbarMenu = ({ route, label }: NavLinkProps) => {
-    console.log("Route:", route);
-    console.log("Label:", label);
-    console.log("Pathname:", pathname);
-
-    const activeClass = pathMatchRoute(route)
-      ? "text-black border-b-red-500"
-      : "text-gray-400";
-
-    const handleClick = () => {
-      router.push(route);
-    };
-
-    return (
-      <>
-        <li
-          className={`cursor-pointer py-3 text-sm font-semibold ${activeClass} border-b-[3px] border-b-transparent`}
-          onClick={handleClick}
-        >
-          {label}
-        </li>
-      </>
-    );
-  };
-
+  const path = [
+    {
+      route: "/",
+      label: "Home",
+    },
+    {
+      route: "/offers",
+      label: "Offers",
+    },
+    {
+      route: "/sign-in",
+      label: "Sign In",
+    },
+  ];
   return (
     <div className="bg-white border-b shadow-sm sticky top-0 z-50">
       <header className="flex justify-between items-center px-3 max-w-6xl mx-auto">
@@ -47,16 +30,42 @@ const Header = () => {
             onClick={() => router.push("/")}
           />
         </div>
-        <div>
+        <nav>
           <ul className="flex space-x-10">
-            <NavbarMenu route="/" label="Home" />
-            <NavbarMenu route="/offers" label="Offers" />
-            <NavbarMenu route="/sign-in" label="Sign In" />
+            {path.map((ele, index) => (
+              <NavbarMenu key={index} route={ele.route} label={ele.label} />
+            ))}
           </ul>
-        </div>
+        </nav>
       </header>
     </div>
   );
 };
 
 export default Header;
+
+const NavbarMenu: React.FC<NavLinkProps> = ({ route, label }) => {
+  const router = useRouter();
+  const pathname = usePathname();
+
+  const handleClick = useCallback(() => {
+    router.push(route);
+  }, [router, route]);
+
+  const pathMatchRoute = (route: string) => {
+    return route === pathname
+      ? "text-black border-b-red-500 border-b-[3px]"
+      : "";
+  };
+
+  const isActive = pathMatchRoute(route);
+
+  return (
+    <li
+      className={`cursor-pointer py-3 text-sm font-semibold ${isActive}`}
+      onClick={handleClick}
+    >
+      {label}
+    </li>
+  );
+};

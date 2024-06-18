@@ -2,8 +2,6 @@
 import OAuth from "@/_components/OAuth";
 import Link from "next/link";
 import React, { Fragment, useState } from "react";
-import { IoMdEye } from "react-icons/io";
-import { IoMdEyeOff } from "react-icons/io";
 
 const ForgotPassword = () => {
   const [email, setEmail] = useState<string>("");

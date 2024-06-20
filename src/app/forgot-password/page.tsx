@@ -2,14 +2,24 @@
 import FormButton from "@/_components/FormButton";
 import FormInput from "@/_components/FormInput";
 import OAuth from "@/_components/OAuth";
+import { auth } from "@/firebase";
+import { sendPasswordResetEmail } from "firebase/auth";
 import Link from "next/link";
 import React, { Fragment, useState } from "react";
+import { toast } from "react-toastify";
 
 const ForgotPassword = () => {
   const [email, setEmail] = useState<string>("");
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    try {
+      await sendPasswordResetEmail(auth,email)
+      toast.success("Email was sent")
+    } catch (error) {
+      console.error("Error signing up:", error);
+      toast.error("Could not send reset password");
+    }
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {

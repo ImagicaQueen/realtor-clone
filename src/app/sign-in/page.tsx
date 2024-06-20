@@ -1,6 +1,10 @@
 "use client";
 import AuthForm from "@/_components/AuthForm";
+import { auth } from "@/firebase";
+import { signInWithEmailAndPassword } from "firebase/auth";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { toast } from "react-toastify";
 
 interface SignInFormData {
   email: string;
@@ -13,8 +17,28 @@ const SignIn = () => {
     password: "",
   });
 
-  const handleSubmit = (formData: SignInFormData) => {
-    console.log(formData);
+  const router = useRouter();
+
+  const handleSubmit = async (formData: SignInFormData) => {
+    try {
+      const userCredential = await signInWithEmailAndPassword(
+        auth,
+        formData.email,
+        formData.password
+      );
+
+      if (userCredential.user) {
+        router.push("/");
+      }
+
+      setFormData({
+        email: "",
+        password: "",
+      });
+    } catch (error) {
+      console.error("Error signing up:", error);
+      toast.error("Something went wrong with the registration");
+    }
   };
 
   return (

@@ -1,14 +1,12 @@
 import { Inter } from "next/font/google";
 import "./globals.css";
 import Header from "@/_components/Header";
+import { CustomMetadata, RootLayoutProps } from "@/interfaces/layout";
+import { ToastContainer } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
+
 
 const inter = Inter({ subsets: ["latin"] });
-
-interface CustomMetadata {
-  title: string;
-  description: string;
-  icon: string;
-}
 
 export const metadata: CustomMetadata = {
   title: "Realtor-clone",
@@ -16,21 +14,24 @@ export const metadata: CustomMetadata = {
   icon: "/favicon.ico",
 };
 
-type RootLayoutProps = {
-  children: React.ReactNode;
-};
-
 const RootLayout: React.FC<RootLayoutProps> = ({ children }) => {
   return (
     <html lang="en">
-      {/* <head>
-        <link rel="icon" href={metadata.icon} />
-        <title>{metadata.title}</title>
-        <meta name="description" content={metadata.description} />
-      </head> */}
       <body className={inter.className}>
-        <Header/>
+        <Header />
         <div>{children}</div>
+        <ToastContainer
+          position="top-right"
+          autoClose={3000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          theme="dark"
+        />
       </body>
     </html>
   );

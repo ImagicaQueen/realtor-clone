@@ -1,4 +1,6 @@
 "use client";
+import FormButton from "@/_components/FormButton";
+import FormInput from "@/_components/FormInput";
 import OAuth from "@/_components/OAuth";
 import Link from "next/link";
 import React, { Fragment, useState } from "react";
@@ -27,16 +29,14 @@ const ForgotPassword = () => {
           </div>
           <div className="w-full md:w-[67%] lg:w-[40%] lg:ml-20">
             <form onSubmit={handleSubmit}>
-              <input
+              <FormInput
                 type="email"
                 id="email"
                 name="email"
                 placeholder="Email address"
                 value={email}
                 onChange={handleChange}
-                className="mb-6 w-full px-4 py-2 text-xl text-gray-700 bg-white border-gray-300 rounded transition ease-in-out"
               />
-
               <div className="flex justify-between whitespace-nowrap text-sm sm:text-lg">
                 <p className="mb-6">
                   Don't have a account?
@@ -56,13 +56,7 @@ const ForgotPassword = () => {
                   </Link>
                 </p>
               </div>
-
-              <button
-                className="w-full bg-blue-600 text-white px-7 py-3 text-sm font-medium uppercase rounded shadow-md hover:bg-blue-700 transition duration-150 ease-in-out hover:shadow-lg active:bg-blue-800"
-                type="submit"
-              >
-                Set Reset Password
-              </button>
+              <FormButton text="Set Reset Password" />
               <div className="flex items-center my-4 before:border-t before:flex-1 before:border-gray-300 after:border-t after:flex-1 after:border-gray-300">
                 <p className="text-center font-semibold mx-4">OR</p>
               </div>

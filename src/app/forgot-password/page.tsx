@@ -14,8 +14,8 @@ const ForgotPassword = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      await sendPasswordResetEmail(auth,email)
-      toast.success("Email was sent")
+      await sendPasswordResetEmail(auth, email);
+      toast.success("Email was sent");
     } catch (error) {
       console.error("Error signing up:", error);
       toast.error("Could not send reset password");

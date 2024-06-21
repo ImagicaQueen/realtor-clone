@@ -1,6 +1,5 @@
 import { auth, db } from "@/firebase";
 import { useRouter } from "next/navigation";
-
 import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import { doc, getDoc, serverTimestamp, setDoc } from "firebase/firestore";
 import React from "react";

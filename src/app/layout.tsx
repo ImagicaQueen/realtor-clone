@@ -3,8 +3,7 @@ import "./globals.css";
 import Header from "@/_components/Header";
 import { CustomMetadata, RootLayoutProps } from "@/interfaces/layout";
 import { ToastContainer } from "react-toastify";
-import 'react-toastify/dist/ReactToastify.css';
-
+import "react-toastify/dist/ReactToastify.css";
 
 const inter = Inter({ subsets: ["latin"] });
 

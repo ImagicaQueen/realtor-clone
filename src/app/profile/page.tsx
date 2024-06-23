@@ -6,6 +6,7 @@ import { useAuthStatus } from "@/hooks/useAuthStatus";
 import { toast } from "react-toastify";
 import { updateProfile } from "firebase/auth";
 import { doc, updateDoc } from "firebase/firestore";
+import Spinner from "@/_components/Spinner";
 interface ProfileFormData {
   name: string;
   email: string;
@@ -49,7 +50,7 @@ const Profile = () => {
   };
 
   if (loading) {
-    return <div>Loading...</div>;
+    return <Spinner />;
   }
   const handleSubmit = async () => {
     if (!auth.currentUser) return;

@@ -1,24 +1,42 @@
 "use client";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 import { NavLinkProps } from "@/interfaces/header";
 import Link from "next/link";
+import { auth } from "@/firebase";
+import { onAuthStateChanged } from "firebase/auth";
 
 const Header = () => {
-  const path: NavLinkProps[] = [
-    {
-      route: "/",
-      label: "Home",
-    },
-    {
-      route: "/offers",
-      label: "Offers",
-    },
-    {
-      route: "/sign-in",
-      label: "Sign In",
-    },
-  ];
+  const [pageState, setPageState] = useState<string>("Sign In");
+  const [path, setPath] = useState<NavLinkProps[]>([
+    { route: "/", label: "Home" },
+    { route: "/offers", label: "Offers" },
+    { route: "/sign-in", label: "Sign In" },
+  ]);
+
+  useEffect(() => {
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        setPageState("Profile");
+        setPath((prev) =>
+          prev.map((p) =>
+            p.route === "/sign-in"
+              ? { ...p, route: "/profile", label: "Profile" }
+              : p
+          )
+        );
+      } else {
+        setPageState("Sign In");
+        setPath((prev) =>
+          prev.map((p) =>
+            p.route === "/profile"
+              ? { ...p, route: "/sign-in", label: "Sign In" }
+              : p
+          )
+        );
+      }
+    });
+  }, [auth]);
 
   return (
     <div className="bg-white border-b shadow-sm sticky top-0 z-50">

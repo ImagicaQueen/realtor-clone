@@ -6,7 +6,6 @@ import { useAuthStatus } from "@/hooks/useAuthStatus";
 import { toast } from "react-toastify";
 import { updateProfile } from "firebase/auth";
 import { doc, updateDoc } from "firebase/firestore";
-
 interface ProfileFormData {
   name: string;
   email: string;

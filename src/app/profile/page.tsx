@@ -7,6 +7,9 @@ import { toast } from "react-toastify";
 import { updateProfile } from "firebase/auth";
 import { doc, updateDoc } from "firebase/firestore";
 import Spinner from "@/_components/Spinner";
+import { FaHome } from "react-icons/fa";
+import Link from "next/link";
+
 interface ProfileFormData {
   name: string;
   email: string;
@@ -129,7 +132,13 @@ const Profile = () => {
                 onClick={handleSubmit}
                 className="w-full bg-blue-600 text-white uppercase px-7 py-3 text-sm font-medium rounded shadow-md hover:bg-blue-700 transition duration-150 ease-in-out hover:shadow-lg active:bg-blue-800"
               >
-                Update Profile
+                <Link
+                  href="/create-listing"
+                  className="flex items-center justify-center"
+                >
+                  <FaHome className="mr-2 text-2xl bg-gray-800 rounded-full border border-white-500" />
+                  Sell or rent your home
+                </Link>
               </button>
             </div>
           </section>

@@ -1,25 +1,22 @@
 "use client";
 import React, { useState } from "react";
-import FormButton from "./FormButton";
-import FormInput from "./FormInput";
+import Button from "./Button";
+import InputField from "./InputField";
 import OAuth from "./OAuth";
-import PasswordInput from "./PasswordInput";
 import Link from "next/link";
-import { AuthFormProps } from "@/interfaces/authForm";
-
-interface FormData {
-  name?: string;
-  email: string;
-  password: string;
-}
+import { AuthFormFromData, AuthFormProps } from "@/interfaces/authForm";
+import OR from "./OR";
 
 const AuthForm: React.FC<AuthFormProps> = ({
-  initialFormData,
   onSubmit,
   submitButtonText,
   isSignUp = false,
 }) => {
-  const [formData, setFormData] = useState<FormData>(initialFormData);
+  const [formData, setFormData] = useState<AuthFormFromData>({
+    name: "",
+    email: "",
+    password: "",
+  });
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -28,7 +25,7 @@ const AuthForm: React.FC<AuthFormProps> = ({
 
   const handleChange = (e: React.FormEvent<HTMLInputElement>) => {
     const { name, value } = e.currentTarget;
-    setFormData((pre: FormData) => ({
+    setFormData((pre: AuthFormFromData) => ({
       ...pre,
       [name]: value,
     }));
@@ -37,7 +34,7 @@ const AuthForm: React.FC<AuthFormProps> = ({
   return (
     <form onSubmit={handleSubmit}>
       {isSignUp && (
-        <FormInput
+        <InputField
           type="text"
           id="name"
           name="name"
@@ -46,7 +43,7 @@ const AuthForm: React.FC<AuthFormProps> = ({
           onChange={handleChange}
         />
       )}
-      <FormInput
+      <InputField
         type="email"
         id="email"
         name="email"
@@ -54,10 +51,13 @@ const AuthForm: React.FC<AuthFormProps> = ({
         value={formData.email}
         onChange={handleChange}
       />
-      <PasswordInput
+
+      <InputField
         id="password"
         name="password"
+        type="password"
         value={formData.password}
+        placeholder="Email password"
         onChange={handleChange}
       />
       <div className="flex justify-between whitespace-nowrap text-sm sm:text-lg">
@@ -92,10 +92,12 @@ const AuthForm: React.FC<AuthFormProps> = ({
         </p>
       </div>
 
-      <FormButton text={submitButtonText} />
-      <div className="flex items-center my-4 before:border-t before:flex-1 before:border-gray-300 after:border-t after:flex-1 after:border-gray-300">
-        <p className="text-center font-semibold mx-4">OR</p>
-      </div>
+      {/* <Button
+        text={submitButtonText}
+        className="w-full bg-blue-600 text-white px-7 py-3 text-sm font-medium uppercase rounded shadow-md hover:bg-blue-700 transition duration-150 ease-in-out hover:shadow-lg active:bg-blue-800"
+      /> */}
+      <Button variant={isSignUp ? "signUp" : "signIn"} type="submit" />
+      <OR color="red" />
       <OAuth />
     </form>
   );

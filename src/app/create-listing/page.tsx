@@ -1,6 +1,10 @@
 "use client";
-import { CustomButtonProps, FormData } from "@/interfaces/create-listing";
+import CustomInput from "@/_components/CustomInput";
+import { FormData } from "@/interfaces/create-listing";
 import React, { useState, MouseEvent, ChangeEvent } from "react";
+import ToggleButtonGroup from "@/_components/ToggleButtonGroup";
+import CustomTextarea from "@/_components/CustomTextarea";
+import Button from "@/_components/Buttons";
 
 export interface CustomInputProps {
   id: string;
@@ -31,7 +35,7 @@ const CreateListing = () => {
     latitude: 0,
     longitude: 0,
   });
-  const [geolocationEnabled, setGeolocationEnabled] = useState(true);
+  const [geolocationEnabled, setGeolocationEnabled] = useState(false);
 
   const {
     type,
@@ -63,26 +67,29 @@ const CreateListing = () => {
           <p className="text-lg mt-6 font-semibold">Sell / Rent</p>
           <div className="flex">
             <div className="mr-3 w-full">
-              <CustomButton
+              <Button
                 id="type"
+                type="button"
                 value="sale"
                 onClick={onChange}
                 isActive={type === "rent"}
               >
                 sell
-              </CustomButton>
+              </Button>
             </div>
             <div className="ml-3 w-full">
-              <CustomButton
+              <Button
                 id="type"
+                type="button"
                 value="rent"
                 onClick={onChange}
                 isActive={type === "sale"}
               >
                 rent
-              </CustomButton>
+              </Button>
             </div>
           </div>
+
           <p className="text-lg mt-6 font-semibold">Name</p>
           <CustomInput
             id="name"
@@ -92,7 +99,6 @@ const CreateListing = () => {
             placeholder="Name"
             maxLength={32}
             minLength={10}
-            required
           />
           <div className="flex space-x-6 mb-6">
             <div>
@@ -106,7 +112,6 @@ const CreateListing = () => {
                 placeholder="Beds"
                 min={1}
                 max={50}
-                required
                 className="text-center"
               />
             </div>
@@ -127,61 +132,101 @@ const CreateListing = () => {
           </div>
           <p className="text-lg mt-6 font-semibold">Parking spot</p>
           <div className="flex">
-            <CustomButton
+            <Button
               id="parking"
-              value="true"
+              type="button"
+              value={true}
               onClick={onChange}
               className={`mr-3 px-7 py-3 font-medium text-sm uppercase shadow-md rounded hover:shadow-lg focus:shadow-lg active:shadow-lg transition duration-150 ease-in-out w-full ${
                 !parking ? "bg-white text-black" : "bg-slate-600 text-white"
               }`}
             >
               Yes
-            </CustomButton>
-            <CustomButton
+            </Button>
+            <Button
               id="parking"
-              value="false"
+              value={false}
+              type="button"
               onClick={onChange}
               className={`ml-3 px-7 py-3 font-medium text-sm uppercase shadow-md rounded hover:shadow-lg focus:shadow-lg active:shadow-lg transition duration-150 ease-in-out w-full ${
                 parking ? "bg-white text-black" : "bg-slate-600 text-white"
               }`}
             >
               no
-            </CustomButton>
+            </Button>
           </div>
           <p className="text-lg mt-6 font-semibold">Furnished</p>
           <div className="flex">
-            <CustomButton
+            <Button
               id="furnished"
-              value="true"
+              value={true}
+              type="button"
               onClick={onChange}
               className={`mr-3 px-7 py-3 font-medium text-sm uppercase shadow-md rounded hover:shadow-lg focus:shadow-lg active:shadow-lg transition duration-150 ease-in-out w-full ${
                 !furnished ? "bg-white text-black" : "bg-slate-600 text-white"
               }`}
             >
               Yes
-            </CustomButton>
+            </Button>
 
-            <CustomButton
+            <Button
               id="furnished"
-              value="false"
+              value={false}
+              type="button"
               onClick={onChange}
               className={`ml-3 px-7 py-3 font-medium text-sm uppercase shadow-md rounded hover:shadow-lg focus:shadow-lg active:shadow-lg transition duration-150 ease-in-out w-full ${
                 furnished ? "bg-white text-black" : "bg-slate-600 text-white"
               }`}
             >
               no
-            </CustomButton>
+            </Button>
           </div>
-          <p className="text-lg mt-6 font-semibold">Address</p>
-          <textarea
-            id="address"
-            value={address}
-            onChange={onChange}
-            placeholder="Address"
-            required
-            className="w-full px-4 py-2 text-xl text-gray-700 bg-white border border-gray-300 rounded transition duration-150 ease-in-out focus:text-gray-700 focus:bg-white focus:border-slate-600 mb-6"
-          />
-          {!geolocationEnabled && (
+          <p className="text-lg mt-3 font-semibold">Address</p>
+
+          <div>
+            <CustomTextarea
+              id="address"
+              type="text"
+              value={address}
+              onChange={onChange}
+              placeholder="Address"
+            />
+            <p className="text-lg mt-3 font-semibold">Description</p>
+            <CustomTextarea
+              id="description"
+              type="text"
+              value={description}
+              onChange={onChange}
+              placeholder="Description"
+            />
+          </div>
+          <p className="text-lg mt-6 font-semibold">Offer</p>
+          <div className="flex">
+            <Button
+              id="offer"
+              value={true}
+              type="button"
+              onClick={onChange}
+              className={`mr-3 px-7 py-3 font-medium text-sm uppercase shadow-md rounded hover:shadow-lg focus:shadow-lg active:shadow-lg transition duration-150 ease-in-out w-full ${
+                !offer ? "bg-white text-black" : "bg-slate-600 text-white"
+              }`}
+            >
+              Yes
+            </Button>
+
+            <Button
+              id="offer"
+              value={false}
+              type="button"
+              onClick={onChange}
+              className={`ml-3 px-7 py-3 font-medium text-sm uppercase shadow-md rounded hover:shadow-lg focus:shadow-lg active:shadow-lg transition duration-150 ease-in-out w-full ${
+                offer ? "bg-white text-black" : "bg-slate-600 text-white"
+              }`}
+            >
+              no
+            </Button>
+          </div>
+          {/* {!geolocationEnabled && (
             <div className="flex space-x-6 justify-start mb-6">
               <div className="">
                 <p className="text-lg font-semibold">Latitude</p>
@@ -200,16 +245,7 @@ const CreateListing = () => {
               </div>
               <div className="">
                 <p className="text-lg font-semibold">Longitude</p>
-                <input
-                  type="number"
-                  id="longitude"
-                  value={longitude}
-                  onChange={onChange}
-                  required
-                  min="-180"
-                  max="180"
-                  className="w-full px-4 py-2 text-xl text-gray-700 bg-white border border-gray-300 rounded transition duration-150 ease-in-out focus:bg-white focus:text-gray-700 focus:border-slate-600 text-center"
-                />
+
                 <CustomInput
                   type="number"
                   id="longitude"
@@ -222,7 +258,7 @@ const CreateListing = () => {
                 />
               </div>
             </div>
-          )}
+          )} */}
         </form>
       </main>
     </>
@@ -230,55 +266,3 @@ const CreateListing = () => {
 };
 
 export default CreateListing;
-
-const CustomButton: React.FC<CustomButtonProps> = ({
-  id,
-  value,
-  onClick,
-  isActive,
-  children,
-  className = "",
-}) => {
-  return (
-    <button
-      type="button"
-      id={id}
-      value={value}
-      onClick={onClick}
-      className={`px-7 py-3 font-medium text-sm uppercase shadow-md rounded hover:shadow-lg focus:shadow-lg active:shadow-lg transition duration-150 ease-in-out w-full ${
-        isActive ? "bg-white text-black" : "bg-slate-600 text-white"
-      } ${className}`}
-    >
-      {children}
-    </button>
-  );
-};
-const CustomInput: React.FC<CustomInputProps> = ({
-  id,
-  value,
-  onChange,
-  type,
-  placeholder,
-  maxLength,
-  minLength,
-  required = false,
-  className = "",
-  min,
-  max,
-}) => {
-  return (
-    <input
-      type={type}
-      id={id}
-      value={value}
-      onChange={onChange}
-      placeholder={placeholder}
-      maxLength={maxLength}
-      minLength={minLength}
-      required={required}
-      className={`w-full px-4 py-2 text-xl text-gray-700 bg-white border border-gray-300 rounded transition duration-150 ease-in-out focus:text-gray-700 focus:bg-white focus:border-slate-600 mb-6 ${className}`}
-      min={min}
-      max={max}
-    />
-  );
-};

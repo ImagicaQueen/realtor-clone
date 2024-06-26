@@ -12,29 +12,17 @@ interface SignInFormData {
 }
 
 const SignIn = () => {
-  const [formData, setFormData] = useState<SignInFormData>({
-    email: "",
-    password: "",
-  });
-
   const router = useRouter();
 
-  const handleSubmit = async (formData: SignInFormData) => {
+  const handleSubmit = async (formDataProps: SignInFormData) => {
     try {
       const userCredential = await signInWithEmailAndPassword(
         auth,
-        formData.email,
-        formData.password
+        formDataProps.email,
+        formDataProps.password
       );
 
-      if (userCredential.user) {
-        router.push("/");
-      }
-
-      setFormData({
-        email: "",
-        password: "",
-      });
+      if (userCredential.user) router.push("/");
     } catch (error) {
       console.error("Error signing up:", error);
       toast.error("Something went wrong with the registration");
@@ -53,11 +41,7 @@ const SignIn = () => {
           />
         </div>
         <div className="w-full md:w-[67%] lg:w-[40%] lg:ml-20">
-          <AuthForm
-            initialFormData={formData}
-            onSubmit={handleSubmit}
-            submitButtonText="Sign In"
-          />
+          <AuthForm onSubmit={handleSubmit} submitButtonText="Sign In" />
         </div>
       </div>
     </section>

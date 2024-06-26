@@ -1,12 +1,11 @@
-export interface FormData {
+export interface AuthFormFromData {
   name?: string;
   email: string;
   password: string;
 }
 
 export interface AuthFormProps {
-  initialFormData: FormData;
   onSubmit: (formData: any) => void;
-  submitButtonText: string;
+  submitButtonText: string | any;
   isSignUp?: boolean;
 }

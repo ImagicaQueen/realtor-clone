@@ -2,41 +2,29 @@
 import React, { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 import { NavLinkProps } from "@/interfaces/header";
+g;
 import Link from "next/link";
 import { auth } from "@/firebase";
 import { onAuthStateChanged } from "firebase/auth";
 
 const Header = () => {
-  const [pageState, setPageState] = useState<string>("Sign In");
-  const [path, setPath] = useState<NavLinkProps[]>([
-    { route: "/", label: "Home" },
-    { route: "/offers", label: "Offers" },
-    { route: "/sign-in", label: "Sign In" },
-  ]);
+  const [userLoggedIn, setUserLoggedIn] = useState(false);
 
   useEffect(() => {
-    onAuthStateChanged(auth, (user) => {
-      if (user) {
-        setPageState("Profile");
-        setPath((prev) =>
-          prev.map((p) =>
-            p.route === "/sign-in"
-              ? { ...p, route: "/profile", label: "Profile" }
-              : p
-          )
-        );
-      } else {
-        setPageState("Sign In");
-        setPath((prev) =>
-          prev.map((p) =>
-            p.route === "/profile"
-              ? { ...p, route: "/sign-in", label: "Sign In" }
-              : p
-          )
-        );
-      }
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      setUserLoggedIn(!!user); // Update userLoggedIn based on auth state
     });
-  }, [auth]);
+    return () => unsubscribe(); // Clean up the subscription on unmount
+  }, []);
+
+  const path: NavLinkProps[] = [
+    { route: "/", label: "Home" },
+    { route: "/offers", label: "Offers" },
+    {
+      route: userLoggedIn ? "/profile" : "/sign-in",
+      label: userLoggedIn ? "Profile" : "Sign In",
+    },
+  ];
 
   return (
     <div className="bg-white border-b shadow-sm sticky top-0 z-40">

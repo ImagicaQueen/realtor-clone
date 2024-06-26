@@ -15,11 +15,6 @@ interface SignUpFormData {
 }
 
 const SignUp = () => {
-  const [formData, setFormData] = useState<SignUpFormData>({
-    name: "",
-    email: "",
-    password: "",
-  });
   const router = useRouter();
 
   const handleSubmit = async (formData: SignUpFormData) => {
@@ -42,12 +37,6 @@ const SignUp = () => {
 
       await setDoc(doc(db, "users", user.uid), formDataCopy);
 
-      setFormData({
-        name: "",
-        email: "",
-        password: "",
-      });
-
       router.push("/");
     } catch (error) {
       console.error("Error signing up:", error);
@@ -68,7 +57,6 @@ const SignUp = () => {
         </div>
         <div className="w-full md:w-[67%] lg:w-[40%] lg:ml-20">
           <AuthForm
-            initialFormData={formData}
             onSubmit={handleSubmit}
             submitButtonText="Sign Up"
             isSignUp

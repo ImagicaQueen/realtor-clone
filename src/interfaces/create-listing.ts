@@ -1,10 +1,12 @@
 export interface CustomButtonProps {
-  id: string;
-  value: any;
+  id?: string;
+  value?: any;
   onClick?: (event: any) => void;
   isActive?: boolean;
-  children: React.ReactNode;
+  children?: React.ReactNode;
   className?: string;
+  type?: string;
+  text?: string;
 }
 export interface FormData {
   type: "rent" | "sale";

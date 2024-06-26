@@ -42,7 +42,7 @@ const Profile = () => {
         });
       }
     }
-  }, [loggedIn, loading, router]);
+  }, [loggedIn, loading]);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;

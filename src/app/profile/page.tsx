@@ -9,6 +9,7 @@ import { doc, updateDoc } from "firebase/firestore";
 import Spinner from "@/_components/Spinner";
 import { FaHome } from "react-icons/fa";
 import Link from "next/link";
+import InputField from "../../_components/InputField";
 
 interface ProfileFormData {
   name: string;
@@ -22,6 +23,7 @@ const Profile = () => {
     name: "",
     email: "",
   });
+
   const { name, email } = formData;
   const [changeDetail, setChangeDetail] = useState<boolean>(false);
 
@@ -72,7 +74,6 @@ const Profile = () => {
           name,
         });
       }
-      console.log("0000000000", name);
       toast.success("Profile Detail Updated");
     } catch (err) {
       toast.error("Could not update the profile detail");
@@ -87,7 +88,7 @@ const Profile = () => {
             <h1 className="text-3xl text-center mt-6 font-bold">My Profile</h1>
             <div className="w-full md:w-[50%] mt-6 px-3">
               <form>
-                <input
+                {/* <input
                   type="text"
                   id="name"
                   name="name"
@@ -97,14 +98,22 @@ const Profile = () => {
                   className={`mb-6 w-full px-4 py-2 text-xl text-gray-700 bg-white border border-gray-300 rounded transition ease-in-out ${
                     changeDetail && "bg-red-200 focus:bg-red-200"
                   }`}
+                /> */}
+                <InputField
+                  id="name"
+                  name="name"
+                  type="text"
+                  value={name}
+                  placeholder="Email"
+                  onChange={handleInputChange}
                 />
-                <input
-                  type="email"
+                <InputField
                   id="email"
                   name="email"
+                  type="email"
                   value={email}
+                  placeholder="Email password"
                   onChange={handleInputChange}
-                  className="mb-6 w-full px-4 py-2 text-xl text-gray-700 bg-white border border-gray-300 rounded transition ease-in-out"
                 />
                 <div className="flex justify-between whitespace-nowrap text-sm sm:text-lg mb-6">
                   <p className="flex items-center no-wrap">

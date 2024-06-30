@@ -4,7 +4,7 @@ import Button from "./Button";
 import InputField from "./InputField";
 import OAuth from "./OAuth";
 import Link from "next/link";
-import { AuthFormFromData, AuthFormProps } from "@/interfaces/authForm";
+import { AuthFormProps, AuthFromData } from "@/interfaces/authForm";
 import OR from "./OR";
 
 const AuthForm: React.FC<AuthFormProps> = ({
@@ -12,7 +12,7 @@ const AuthForm: React.FC<AuthFormProps> = ({
   submitButtonText,
   isSignUp = false,
 }) => {
-  const [formData, setFormData] = useState<AuthFormFromData>({
+  const [formData, setFormData] = useState<AuthFromData>({
     name: "",
     email: "",
     password: "",
@@ -25,7 +25,7 @@ const AuthForm: React.FC<AuthFormProps> = ({
 
   const handleChange = (e: React.FormEvent<HTMLInputElement>) => {
     const { name, value } = e.currentTarget;
-    setFormData((pre: AuthFormFromData) => ({
+    setFormData((pre: AuthFromData) => ({
       ...pre,
       [name]: value,
     }));

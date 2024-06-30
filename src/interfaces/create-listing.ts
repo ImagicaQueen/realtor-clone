@@ -8,6 +8,7 @@ export interface CustomButtonProps {
   type?: string;
   text?: string;
 }
+export type EmptyObj = Record<PropertyKey, never>;
 export interface FormData {
   type: "rent" | "sale";
   name: string;
@@ -22,4 +23,5 @@ export interface FormData {
   discountedPrice: number;
   latitude: number;
   longitude: number;
+  images: any;
 }

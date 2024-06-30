@@ -2,7 +2,6 @@
 import React, { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 import { NavLinkProps } from "@/interfaces/header";
-g;
 import Link from "next/link";
 import { auth } from "@/firebase";
 import { onAuthStateChanged } from "firebase/auth";
